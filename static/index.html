@@ -956,20 +956,67 @@
        MODALS: Video Demo, Component Library, Timeout Error Recovery
        ========================================================================= -->
 
-  <!-- Modal: Video Demo Placeholder -->
+  <!-- Modal: Video Demo Interactive Walkthrough -->
   <div class="modal-overlay" id="modalVideoDemo" role="dialog" aria-modal="true" aria-labelledby="modalVideoTitle">
-    <div class="modal-content">
+    <div class="modal-content" style="max-width: 680px;">
       <div class="modal-header">
-        <h3 id="modalVideoTitle">Product Demonstration</h3>
+        <div>
+          <h3 id="modalVideoTitle" style="font-size: 1.35rem;">Craft Keeper Demonstration</h3>
+          <div style="font-size: 0.8125rem; color: var(--color-muted); margin-top: 2px;">Preserving living audiovisual heritage in 4 steps</div>
+        </div>
         <button type="button" class="modal-close-btn" id="btnCloseVideoModal" aria-label="Close modal">&times;</button>
       </div>
-      <div style="background: #1F2421; border-radius: var(--radius-input); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: #FAF8F3; flex-direction: column; gap: var(--space-2);">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FAF8F3" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-        <span style="font-size: 0.9375rem;">[Demo Video Recording Placeholder: Mysore Pak preparation]</span>
+
+      <!-- Animated Simulated Walkthrough Screen -->
+      <div style="background: #1F2421; border-radius: var(--radius-input); padding: var(--space-5); color: #FAF8F3; display: flex; flex-direction: column; gap: var(--space-4);">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333D37; padding-bottom: 10px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #E3A72F;"></span>
+            <span style="font-size: 0.875rem; font-weight: 600;">Sample Clip: Traditional Mysuru Paak (69s)</span>
+          </div>
+          <span style="font-size: 0.75rem; background: #2A332D; padding: 2px 8px; border-radius: 4px; color: #8A9A8F;">Kannada • Mysore, Karnataka</span>
+        </div>
+
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); background: #171B19; padding: var(--space-3); border-radius: 6px;">
+          <div style="font-size: 0.8125rem;">
+            <div style="color: #8A9A8F;">Spoken Oral Explanation:</div>
+            <div style="color: #FAF8F3; font-style: italic; margin-top: 2px;">"Rub warm ghee into dry flour before it touches the syrup..."</div>
+          </div>
+          <div class="audio-waveform-visual" style="height: 28px; padding: 0;">
+            <div class="wave-bar" style="background: #E3A72F;"></div>
+            <div class="wave-bar" style="background: #E3A72F;"></div>
+            <div class="wave-bar" style="background: #E3A72F;"></div>
+            <div class="wave-bar" style="background: #E3A72F;"></div>
+            <div class="wave-bar" style="background: #E3A72F;"></div>
+          </div>
+        </div>
+
+        <!-- 3 Feature Highlights of the Demonstration -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; font-size: 0.75rem;">
+          <div style="background: #252D28; padding: 10px; border-radius: 6px; border-left: 3px solid #1E4D3A;">
+            <strong style="color: #FAF8F3;">1. Speech & Frames</strong><br>
+            <span style="color: #8A9A8F;">Faster-Whisper transcribes local audio; FFmpeg extracts key frames.</span>
+          </div>
+          <div style="background: #252D28; padding: 10px; border-radius: 6px; border-left: 3px solid #1E4D3A;">
+            <strong style="color: #FAF8F3;">2. Gemma 4 Structuring</strong><br>
+            <span style="color: #8A9A8F;">Extracts ingredients, timestamps, and artisan tips without hallucinating.</span>
+          </div>
+          <div style="background: #252D28; padding: 10px; border-radius: 6px; border-left: 3px solid #E3A72F;">
+            <strong style="color: #E3A72F;">3. Review & Export</strong><br>
+            <span style="color: #8A9A8F;">Human checks uncertain items, edits, and downloads Markdown/JSON.</span>
+          </div>
+        </div>
       </div>
-      <p class="text-small">
-        Demonstrates a 2-minute video being ingested, transcribed via Faster-Whisper, structured by Google Gemma 4 into an editable recipe, and downloaded as Markdown.
-      </p>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: var(--space-2); flex-wrap: wrap; gap: var(--space-3);">
+        <span class="text-small" style="color: var(--color-muted);">Want to test with the actual data right now?</span>
+        <div style="display: flex; gap: var(--space-3);">
+          <button type="button" class="btn btn-secondary btn-small" id="btnCloseVideoModal2">Close</button>
+          <button type="button" class="btn btn-primary btn-small" id="btnLaunchWorkspaceDemo">
+            ⚡ Open Live Demo in Workspace
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 

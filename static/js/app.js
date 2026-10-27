@@ -792,12 +792,35 @@ function initModals() {
   const modalVideo = document.getElementById("modalVideoDemo");
   const btnWatchDemo = document.getElementById("btnWatchDemo");
   const btnCloseVideo = document.getElementById("btnCloseVideoModal");
+  const btnCloseVideo2 = document.getElementById("btnCloseVideoModal2");
+  const btnLaunchDemo = document.getElementById("btnLaunchWorkspaceDemo");
 
   if (btnWatchDemo && modalVideo) {
     btnWatchDemo.addEventListener("click", () => modalVideo.classList.add("open"));
   }
   if (btnCloseVideo && modalVideo) {
     btnCloseVideo.addEventListener("click", () => modalVideo.classList.remove("open"));
+  }
+  if (btnCloseVideo2 && modalVideo) {
+    btnCloseVideo2.addEventListener("click", () => modalVideo.classList.remove("open"));
+  }
+
+  if (btnLaunchDemo && modalVideo) {
+    btnLaunchDemo.addEventListener("click", () => {
+      modalVideo.classList.remove("open");
+      // Switch view from Landing to Workspace
+      const pageLanding = document.getElementById("pageLanding");
+      const pageWorkspace = document.getElementById("pageWorkspace");
+      if (pageLanding && pageWorkspace) {
+        pageLanding.style.display = "none";
+        pageWorkspace.style.display = "block";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      // Instantly populate the sample guide
+      loadSampleResult(DEFAULT_SAMPLE_GUIDE);
+      setWorkspaceStep(4);
+      showToast("Live demo loaded! Review, edit ingredients & steps, or export.", "success");
+    });
   }
 
   // Component Library Modal

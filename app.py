@@ -298,5 +298,5 @@ app = gr.mount_gradio_app(app, gradio_demo, path="/gradio")
 
 
 if __name__ == "__main__":
-    logger.info("Starting Craft Keeper server on http://127.0.0.1:7860")
-    uvicorn.run(app, host="127.0.0.1", port=7860, log_level="info")
+    logger.info("Starting Craft Keeper server on http://127.0.0.1:7860 (and http://0.0.0.0:7860)")
+    uvicorn.run(app, host="0.0.0.0", port=7860, log_level="info")

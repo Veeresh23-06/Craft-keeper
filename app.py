@@ -258,45 +258,56 @@ async def generate_guide_endpoint(
             # Transcribe actual audio from the user's uploaded video
             if BACKEND_NAME == "mock":
                 from craft_keeper.media import extract_audio, cleanup_temp_dir
+                from craft_keeper.extractor import structure_transcript_to_steps, extract_ingredients_from_transcript
                 extract_tmp = tempfile.mkdtemp(prefix="craft_transcribe_")
                 try:
                     audio_path = extract_audio(temp_video_path, output_dir=extract_tmp)
                     if audio_path and os.path.exists(audio_path):
                         from faster_whisper import WhisperModel
                         import gc
-                        logger.info("Starting Faster-Whisper transcription on %s...", audio_path)
+
+                        # Language map for Whisper
+                        LANG_MAP = {
+                            "kannada": "kn", "hindi": "hi", "tamil": "ta", "telugu": "te",
+                            "bengali": "bn", "spanish": "es", "english": "en"
+                        }
+                        whisper_lang = LANG_MAP.get(language.lower().strip()) if language else None
+
+                        logger.info("Starting Faster-Whisper transcription on %s (lang=%s)...", audio_path, whisper_lang)
                         w_model = WhisperModel("base", device="cpu", compute_type="int8")
                         segments, info = w_model.transcribe(
                             audio_path,
+                            language=whisper_lang,
                             beam_size=1,
                             best_of=1,
                             temperature=0.0,
                             condition_on_previous_text=False,
                             vad_filter=True
                         )
-                        step_list = []
+
+                        raw_segments = []
                         for s in segments:
                             text = s.text.strip()
                             if text:
-                                tip = None
-                                if any(w in text.lower() for w in ["tip", "make sure", "remember", "never", "always", "careful", "important"]):
-                                    tip = text
-                                step_list.append({
-                                    "number": len(step_list) + 1,
-                                    "approx_start_seconds": round(s.start, 1),
-                                    "instruction": text,
-                                    "spoken_tip": tip
+                                raw_segments.append({
+                                    "start": round(s.start, 1),
+                                    "end": round(s.end, 1),
+                                    "text": text
                                 })
                         del w_model
                         gc.collect()
 
-                        if step_list:
+                        if raw_segments:
+                            # Filter small talk and extract actionable steps and ingredients
+                            step_list, tips_list, safety_list = structure_transcript_to_steps(raw_segments)
+                            ingredients_list = extract_ingredients_from_transcript(raw_segments)
+
                             clean_name = Path(video.filename).stem.replace("_", " ").replace("-", " ").title()
                             real_guide = {
                                 "title": f"Traditional {clean_name}",
                                 "detected_language": info.language or language or "English",
                                 "category": "craft",
-                                "summary": f"How-to demonstration extracted directly from spoken video audio ({len(step_list)} spoken steps identified).",
+                                "summary": f"How-to guide extracted from spoken audio ({len(step_list)} actionable steps identified, conversational small talk filtered out).",
                                 "metadata": {
                                     "knowledge_holder": "Anonymous" if anonymity else knowledge_holder,
                                     "community": community,
@@ -312,21 +323,15 @@ async def generate_guide_endpoint(
                                     "source_filename": video.filename,
                                     "generated_at": datetime.now(timezone.utc).isoformat()
                                 },
-                                "ingredients_or_materials": [
-                                    {"name": "Materials / Ingredients shown in video", "quantity": "As demonstrated", "note": "Review video recording to verify exact quantities"}
-                                ],
-                                "tools": ["Work surface / utensils shown in video"],
+                                "ingredients_or_materials": ingredients_list,
+                                "tools": ["Work surface / utensils demonstrated in video"],
                                 "steps": step_list,
-                                "tips": [
-                                    "Extracted directly from artisan speech in video recording."
-                                ],
-                                "safety_notes": [
-                                    "Review all steps with a practitioner before attempting."
-                                ],
+                                "tips": tips_list,
+                                "safety_notes": safety_list,
                                 "uncertain_items": [
                                     {
-                                        "what": "Spoken measurements & quantities",
-                                        "reason": "Direct audio transcription from video. Confirm exact measurements before publishing."
+                                        "what": "Spoken measurements & artisan glosses",
+                                        "reason": "Direct audio transcription with small-talk filtering. Confirm exact measurements before publishing."
                                     }
                                 ]
                             }

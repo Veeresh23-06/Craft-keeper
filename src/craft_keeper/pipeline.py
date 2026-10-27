@@ -14,9 +14,9 @@ import tempfile
 
 logger = logging.getLogger("craft_keeper.pipeline")
 
-# Limits specified in product requirements
-MAX_FILE_SIZE_BYTES = 100 * 1024 * 1024  # 100 MB
-MAX_DURATION_SECONDS = 300  # 5 minutes
+# Limits specified in product requirements (default: 1 GB / 1024 MB and 30 minutes)
+MAX_FILE_SIZE_BYTES = int(os.environ.get("MAX_FILE_SIZE_BYTES", 1024 * 1024 * 1024))  # 1 GB
+MAX_DURATION_SECONDS = int(os.environ.get("MAX_DURATION_SECONDS", 1800))  # 30 minutes
 ALLOWED_EXTENSIONS = {".mp4", ".mov", ".webm"}
 
 
@@ -59,8 +59,9 @@ def validate_file_input(
     size = path.stat().st_size
     if size > MAX_FILE_SIZE_BYTES:
         mb = size / (1024 * 1024)
+        limit_mb = MAX_FILE_SIZE_BYTES / (1024 * 1024)
         raise InputValidationError(
-            f"File size ({mb:.1f} MB) exceeds maximum allowed limit of 100 MB."
+            f"File size ({mb:.1f} MB) exceeds maximum allowed limit of {limit_mb:.0f} MB."
         )
 
     return path

@@ -300,7 +300,7 @@ function initDropzone() {
     // Validation
     const validExtensions = [".mp4", ".mov", ".webm"];
     const ext = "." + file.name.split(".").pop().toLowerCase();
-    const maxSize = 100 * 1024 * 1024; // 100 MB
+    const maxSize = 1024 * 1024 * 1024; // 1 GB (1024 MB)
 
     if (!validExtensions.includes(ext)) {
       showErrorState(`Unsupported file type (${ext}). Please upload an MP4, MOV, or WebM video recording.`);
@@ -308,7 +308,7 @@ function initDropzone() {
     }
 
     if (file.size > maxSize) {
-      showErrorState(`File exceeds 100 MB limit (${(file.size / (1024 * 1024)).toFixed(1)} MB). Please select a shorter clip under 5 minutes.`);
+      showErrorState(`File exceeds 1 GB limit (${(file.size / (1024 * 1024)).toFixed(1)} MB). Please select a clip under 1 GB.`);
       return;
     }
 

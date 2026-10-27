@@ -112,7 +112,7 @@ def test_file_format_and_consent_validation(temp_workspace):
 
 
 def test_file_size_validation(temp_workspace, monkeypatch):
-    """Verify files larger than 100MB are rejected."""
+    """Verify files larger than allowed limit are rejected."""
     large_file = temp_workspace / "huge_video.mp4"
     large_file.write_bytes(b"small content")
 
@@ -121,14 +121,14 @@ def test_file_size_validation(temp_workspace, monkeypatch):
     def fake_stat(self, *args, **kwargs):
         if self == large_file:
             class FakeStat:
-                st_size = 101 * 1024 * 1024
+                st_size = MAX_FILE_SIZE_BYTES + (10 * 1024 * 1024)
                 st_mode = 0o100644
             return FakeStat()
         return orig_stat(self, *args, **kwargs)
 
     monkeypatch.setattr(Path, "stat", fake_stat)
 
-    with pytest.raises(InputValidationError, match="exceeds maximum allowed limit of 100 MB"):
+    with pytest.raises(InputValidationError, match="exceeds maximum allowed limit"):
         validate_file_input(large_file, consent_confirmed=True)
 
 

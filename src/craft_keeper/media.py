@@ -11,7 +11,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 logger = logging.getLogger("craft_keeper.media")
 
-MAX_DURATION_SECONDS = 300  # 5 minutes
+MAX_DURATION_SECONDS = int(os.environ.get("MAX_DURATION_SECONDS", 1800))  # 30 minutes max default
 FRAME_SAMPLE_INTERVAL_SECONDS = 10.0
 
 
@@ -100,7 +100,7 @@ def validate_media_duration(
     duration = get_media_duration(video_path)
     if duration > max_duration_seconds:
         raise MediaValidationError(
-            f"Video duration ({duration:.1f}s) exceeds maximum allowed limit of {max_duration_seconds:.0f}s (5 minutes)."
+            f"Video duration ({duration:.1f}s) exceeds maximum allowed limit of {max_duration_seconds:.0f}s."
         )
     return duration
 

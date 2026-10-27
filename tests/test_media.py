@@ -222,8 +222,8 @@ def test_end_to_end_pipeline_with_real_video(temp_workspace):
         consent_confirmed=True,
         backend=mock_backend
     )
-    assert guide.title == "Traditional Mysore Pak"  # from sample
-    assert guide.metadata.speaker == "Master Carpenter"
+    assert "Mysuru Paak" in guide.title  # from sample
+    assert guide.metadata.knowledge_holder == "Master Carpenter"
     assert guide.metadata.place == "Kyoto"
     assert guide.metadata.source_filename == "pipeline_test.mp4"
     assert guide.metadata.consent_confirmed is True

@@ -16,9 +16,7 @@ class MockBackend(ModelBackend):
         if sample_path:
             self.sample_path = Path(sample_path)
         else:
-            # Locate sample_guide.json in repository samples/
             curr = Path(__file__).resolve()
-            # Climb up until we find samples/ or reach root
             candidate = curr.parent.parent.parent.parent / "samples" / "sample_guide.json"
             if not candidate.exists():
                 candidate = Path("samples") / "sample_guide.json"
@@ -38,7 +36,7 @@ class MockBackend(ModelBackend):
             return {
                 "status": "ok",
                 "backend": self.name,
-                "message": f"Mock backend ready. Sample guide loaded from {self.sample_path.name}"
+                "message": f"Mock backend ready. Sample heritage guide loaded from {self.sample_path.name}"
             }
         except Exception as e:
             return {
@@ -60,17 +58,36 @@ class MockBackend(ModelBackend):
         with open(self.sample_path, "r", encoding="utf-8") as f:
             data = json.load(f)
 
-        # Merge supplied user metadata while preserving sample fields
         guide_meta = data.get("metadata", {})
-        if metadata.get("speaker"):
-            guide_meta["speaker"] = metadata["speaker"]
+
+        # Handle anonymity preference
+        anonymity = bool(metadata.get("anonymity_requested", False))
+        guide_meta["anonymity_requested"] = anonymity
+
+        raw_holder = metadata.get("knowledge_holder") or metadata.get("speaker")
+        if anonymity:
+            guide_meta["knowledge_holder"] = "Anonymous"
+        elif raw_holder:
+            guide_meta["knowledge_holder"] = raw_holder
+
+        if metadata.get("community"):
+            guide_meta["community"] = metadata["community"]
         if metadata.get("place"):
             guide_meta["place"] = metadata["place"]
+        if metadata.get("language"):
+            guide_meta["language"] = metadata["language"]
+        if metadata.get("occasion_or_context"):
+            guide_meta["occasion_or_context"] = metadata["occasion_or_context"]
+        if metadata.get("source_video_license_or_permission"):
+            guide_meta["source_video_license_or_permission"] = metadata["source_video_license_or_permission"]
         if "consent_confirmed" in metadata:
             guide_meta["consent_confirmed"] = bool(metadata["consent_confirmed"])
         if metadata.get("source_filename"):
             guide_meta["source_filename"] = metadata["source_filename"]
+
         guide_meta["model_used"] = "mock"
+        guide_meta["frames_used"] = 0
+        guide_meta["frame_mode"] = "unused_sample"
         guide_meta["generated_at"] = datetime.now(timezone.utc).isoformat()
         data["metadata"] = guide_meta
 

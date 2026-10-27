@@ -1,99 +1,106 @@
 {
-  "title": "Traditional Mysore Pak",
+  "title": "Traditional Mysuru Paak (Sample Heritage Sweet)",
   "detected_language": "Kannada",
   "category": "recipe",
-  "summary": "A traditional South Indian melt-in-mouth sweet made with roasted gram flour (besan), sugar syrup at one-string consistency, and warm clarified butter (ghee).",
+  "summary": "A traditional Karnataka melt-in-mouth confection prepared from sieved gram flour, hot clarified butter (ghee), and one-string sugar syrup. (NOTE: This is a synthetic sample created by the project maintainer for testing and demonstration, not recorded from a living individual).",
   "ingredients_or_materials": [
     {
-      "name": "Besan (Gram flour / ಕಡಲೆ ಹಿಟ್ಟು)",
-      "quantity": "1 cup",
-      "note": "Sieved twice to remove lumps"
+      "name": "Besan (Bengal gram flour / ಕಡಲೆ ಹಿಟ್ಟು)",
+      "quantity": "1 cup (approx. 100g)",
+      "note": "Sieved twice through a fine mesh sieve to eliminate lumps"
     },
     {
-      "name": "Sugar (ಸಕ್ಕರೆ)",
-      "quantity": "2 cups",
-      "note": "Standard granulated sugar"
+      "name": "Pure Desi Ghee (Clarified butter / ತುಪ್ಪ)",
+      "quantity": "2 cups (approx. 400ml)",
+      "note": "Kept gently heated and melted in a side saucepan throughout preparation"
     },
     {
-      "name": "Pure Desi Ghee (ತುಪ್ಪ)",
-      "quantity": "2 cups",
-      "note": "Kept warm and melted on low heat in a side pan"
+      "name": "Sugar (Granulated cane sugar / ಸಕ್ಕರೆ)",
+      "quantity": "2 cups (approx. 350g)",
+      "note": "Refined white or raw cane sugar"
     },
     {
       "name": "Water",
       "quantity": "1/2 cup",
-      "note": "Just enough to dissolve the sugar"
+      "note": "Just sufficient to submerge and dissolve the sugar"
     }
   ],
   "tools": [
-    "Heavy-bottomed kadai / deep pan",
-    "Small sauce pan (for keeping ghee hot)",
-    "Wooden ladle or silicone spatula",
-    "Greased rectangular tray or tin",
-    "Sharp knife for scoring"
+    "Heavy-bottomed iron or brass kadai (deep frying pan)",
+    "Small sauce pan with ladle (for continuous hot ghee addition)",
+    "Sturdy long-handled wooden spatula",
+    "Greased high-rimmed metal tray or rectangular tin",
+    "Straight-edge pastry knife for scoring warm squares"
   ],
   "steps": [
     {
       "number": 1,
-      "approx_start_seconds": 5,
-      "instruction": "Sieve the gram flour twice into a mixing bowl to prevent lumps, then mix with 1/4 cup of warm ghee to form a smooth paste.",
-      "spoken_tip": "Mixing a little warm ghee directly into the flour before adding it to syrup prevents lumps from forming."
+      "approx_start_seconds": 8.0,
+      "instruction": "Sieve the gram flour twice into a wide bowl. Fold in two tablespoons of warm melted ghee to create a loose, clump-free paste.",
+      "spoken_tip": "Rubbing warm ghee into the dry flour before it touches the boiling syrup stops lumps from ever forming in the kadai."
     },
     {
       "number": 2,
-      "approx_start_seconds": 25,
-      "instruction": "In a heavy-bottomed kadai, add sugar and 1/2 cup water. Bring to a boil until one-string consistency (oru kambi padam) is reached.",
-      "spoken_tip": "Check the syrup between your thumb and index finger; it should stretch into a single delicate thread."
+      "approx_start_seconds": 21.0,
+      "instruction": "In a heavy-bottomed kadai over medium heat, dissolve two cups of sugar in half a cup of water and boil until one-string consistency (oru kambi padam) is achieved.",
+      "spoken_tip": "Dip your ladle, let a drop cool slightly, and test between thumb and forefinger—it must pull into a continuous thin single string before you add the flour."
     },
     {
       "number": 3,
-      "approx_start_seconds": 50,
-      "instruction": "Lower the flame and slowly pour the gram flour paste into the bubbling syrup while stirring continuously without stopping.",
-      "spoken_tip": "Stir vigorously in one direction so no dry pockets remain."
+      "approx_start_seconds": 38.0,
+      "instruction": "Lower the flame to low and pour the gram flour paste into the bubbling syrup in a steady stream, stirring continuously in one direction with a wooden spatula.",
+      "spoken_tip": "Keep the ladle moving along the bottom of the pan so the gram flour cooks evenly without catching or scorching."
     },
     {
       "number": 4,
-      "approx_start_seconds": 80,
-      "instruction": "Gradually ladle in hot melted ghee, one ladle at a time, allowing the mixture to completely absorb each ladle before adding the next.",
-      "spoken_tip": "The ghee must be hot when added, otherwise the mixture will cool down and turn rubbery."
+      "approx_start_seconds": 47.0,
+      "instruction": "Ladle in boiling hot ghee one ladle at a time. Stir continuously until the mixture absorbs the ghee completely before ladling in the next portion.",
+      "spoken_tip": "The ghee must be hot when added. If you ladle cold ghee into the mixture, the sugar will seize and you lose the porous structure."
     },
     {
       "number": 5,
-      "approx_start_seconds": 120,
-      "instruction": "When the mixture starts frothing, turns honeycomb-like, and leaves the sides of the pan cleanly, immediately transfer it to the greased tray.",
-      "spoken_tip": "Do not pat it down flat or press it; let the natural bubbles stay inside for that porous texture."
+      "approx_start_seconds": 56.0,
+      "instruction": "Watch for the froth: when the entire mass turns light, expands with honeycomb-like air pockets, and separates cleanly from the pan edges, immediately invert it into the greased tin.",
+      "spoken_tip": "Never pat or press the top down with your spoon. Let the trapped air bubbles remain inside for the classic porous honeycomb texture."
     },
     {
       "number": 6,
-      "approx_start_seconds": 150,
-      "instruction": "Let it cool for 10 minutes until warm, then slice gently into diamond or rectangular pieces with a greased knife.",
-      "spoken_tip": "Cut while it is still warm; if it sets completely, it will crumble when sliced."
+      "approx_start_seconds": 62.0,
+      "instruction": "Allow the poured sweet to settle undisturbed for 10 minutes until warm, then score into diamond or square blocks with a warm, oiled blade.",
+      "spoken_tip": "Cut while it is still warm to the touch. Once it cools completely, it hardens and will shatter into irregular crumbs."
     }
   ],
   "tips": [
-    "Keep the ghee continuously hot on a low flame on an adjacent burner.",
-    "Do not compress or press the hot mixture after pouring into the tin; natural pores give Mysore Pak its classic texture."
+    "Maintain the ghee on low simmer on the back burner throughout the entire cooking process.",
+    "Do not compress the sweet after pouring into the tin; natural aeration gives Mysore Pak its iconic soft honeycomb texture."
   ],
   "safety_notes": [
-    "Hot sugar syrup and boiling ghee reach very high temperatures; beware of splatters when ladling hot ghee.",
-    "Use a deep, heavy pan and long-handled wooden spoon to protect your hands."
+    "Hot molten sugar syrup and boiling ghee reach temperatures above 130°C and cause severe burns; use long wooden utensils and beware of splattering when ladling hot ghee.",
+    "Do not handle the poured sweet with bare hands until it has rested for at least 15 minutes."
   ],
   "uncertain_items": [
     {
-      "what": "Exact brand or type of flour",
-      "reason": "Speaker mentions 'homemade roasted gram' but flour packaging was not shown in frame."
+      "what": "Cardamom or saffron flavor addition",
+      "reason": "Mentioned as an optional variation in speech, but not shown among the measured ingredients."
     },
     {
-      "what": "Cardamom powder addition",
-      "reason": "Faint sound around 1:15 could be cardamom mention, but not clearly visible in the ingredient line-up."
+      "what": "Exact gram flour roasting level",
+      "reason": "Speaker mentions 'mildly roasted' but flour color varies depending on regional pulses."
     }
   ],
   "metadata": {
-    "speaker": "Ajji (Grandmother)",
+    "knowledge_holder": "Sample Artisan (Maintainer Demonstration)",
+    "community": "South Indian Traditional Confectionery",
     "place": "Mysuru, Karnataka",
+    "language": "Kannada",
+    "occasion_or_context": "Deepavali Festival & Heirloom Festive Traditions",
+    "source_video_license_or_permission": "Sample created by maintainer for demo purposes (CC0 Public Domain)",
     "consent_confirmed": true,
-    "source_filename": "mysore_pak_demo.mp4",
+    "anonymity_requested": false,
+    "source_filename": "sample_mysore_pak_demo.mp4",
     "model_used": "mock",
+    "frames_used": 0,
+    "frame_mode": "unused_sample",
     "generated_at": "2026-10-27T12:00:00Z"
   }
 }

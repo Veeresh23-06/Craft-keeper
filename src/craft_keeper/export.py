@@ -32,16 +32,27 @@ def export_to_markdown(guide_input: CraftGuide | Dict[str, Any]) -> str:
     lines.append(f"# {guide.title}\n")
     lines.append("> ⚠️ **AI-generated draft.** A person must review it before it is shared.\n")
 
-    # Metadata badges
-    speaker_info = f"**Speaker/Maker:** {guide.metadata.speaker}" if guide.metadata.speaker else ""
-    place_info = f"**Place:** {guide.metadata.place}" if guide.metadata.place else ""
-    lang_info = f"**Language:** {guide.detected_language}"
-    cat_info = f"**Category:** {guide.category.title()}"
-    meta_parts = [p for p in [cat_info, lang_info, speaker_info, place_info] if p]
-    if meta_parts:
-        lines.append(" | ".join(meta_parts) + "\n")
+    # Credit line as required by theme alignment:
+    holder_name = guide.metadata.knowledge_holder or "Anonymous"
+    credit_parts = [holder_name]
+    if guide.metadata.community:
+        credit_parts.append(guide.metadata.community)
+    if guide.metadata.place:
+        credit_parts.append(guide.metadata.place)
+    lines.append(f"**Knowledge shared by:** {', '.join(credit_parts)}\n")
 
-    # Summary
+    # Heritage context line
+    context_items = []
+    if guide.metadata.occasion_or_context:
+        context_items.append(f"**Occasion/Context:** {guide.metadata.occasion_or_context}")
+    if guide.metadata.language:
+        context_items.append(f"**Spoken Language:** {guide.metadata.language}")
+    if guide.metadata.source_video_license_or_permission:
+        context_items.append(f"**Permission/License:** {guide.metadata.source_video_license_or_permission}")
+    if context_items:
+        lines.append(" | ".join(context_items) + "\n")
+
+    # Overview
     lines.append("## Overview\n")
     lines.append(f"{guide.summary}\n")
 
@@ -65,14 +76,14 @@ def export_to_markdown(guide_input: CraftGuide | Dict[str, Any]) -> str:
 
     # Tools
     if guide.tools:
-        lines.append("## Tools & Equipment\n")
+        lines.append("## Traditional Tools & Vessels\n")
         for tool in guide.tools:
             lines.append(f"- {tool}")
         lines.append("")
 
     # Steps
     if guide.steps:
-        lines.append("## Instructions\n")
+        lines.append("## Steps & Oral Guidance\n")
         for step in guide.steps:
             time_tag = ""
             if step.approx_start_seconds is not None:
@@ -85,7 +96,7 @@ def export_to_markdown(guide_input: CraftGuide | Dict[str, Any]) -> str:
 
     # Tips
     if guide.tips:
-        lines.append("## Tips & Cultural Context\n")
+        lines.append("## Artisan Wisdom & Rules of Thumb\n")
         for tip in guide.tips:
             lines.append(f"- {tip}")
         lines.append("")
@@ -97,10 +108,13 @@ def export_to_markdown(guide_input: CraftGuide | Dict[str, Any]) -> str:
             lines.append(f"- {note}")
         lines.append("")
 
-    # Footer provenance
+    # How this was made provenance
     lines.append("---\n")
-    lines.append(f"*Archived by Craft Keeper using `{guide.metadata.model_used}` on {guide.metadata.generated_at}*")
-    if guide.metadata.source_filename:
-        lines.append(f"  \n*Source File: `{guide.metadata.source_filename}`*")
+    lines.append("### How This Was Made (AI Provenance)\n")
+    lines.append(f"- **Generation Path:** `{guide.metadata.model_used}`")
+    lines.append(f"- **Visual Frames:** {guide.metadata.frames_used} analyzed ({guide.metadata.frame_mode})")
+    lines.append(f"- **Source Recording:** `{guide.metadata.source_filename}`")
+    lines.append(f"- **Recorded On:** {guide.metadata.generated_at}")
+    lines.append(f"- **Consent Status:** Explicit permission confirmed (`consent_confirmed={guide.metadata.consent_confirmed}`)")
 
     return "\n".join(lines)

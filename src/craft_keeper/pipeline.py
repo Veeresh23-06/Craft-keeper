@@ -68,17 +68,22 @@ def validate_file_input(
 
 def run_pipeline(
     video_path: Optional[str | Path],
-    speaker: Optional[str] = None,
+    knowledge_holder: Optional[str] = None,
+    community: Optional[str] = None,
     place: Optional[str] = None,
     language: Optional[str] = None,
+    occasion_or_context: Optional[str] = None,
+    source_video_license_or_permission: Optional[str] = None,
     consent_confirmed: bool = False,
+    anonymity_requested: bool = False,
     backend: Optional[ModelBackend] = None,
-    progress_callback: Optional[Callable[[str, float], None]] = None
+    progress_callback: Optional[Callable[[str, float], None]] = None,
+    speaker: Optional[str] = None
 ) -> CraftGuide:
     """Execute the end-to-end Craft Keeper extraction pipeline.
 
     1. Validates file and consent.
-    2. Extracts audio (16kHz WAV) and frames (~1 every 10s) using ffmpeg (or skips if media is None in test/mock).
+    2. Extracts audio (16kHz WAV) and frames (~1 every 10s) using ffmpeg.
     3. Calls backend.generate(...).
     4. Validates output with Pydantic, retrying once if schema fails.
     5. Returns validated CraftGuide.
@@ -90,6 +95,11 @@ def run_pipeline(
     audio_path = None
     frames: List[Dict[str, Any]] = []
     temp_dir = None
+
+    # Handle backward-compatibility for speaker argument
+    effective_holder = knowledge_holder or speaker or "Anonymous"
+    if anonymity_requested:
+        effective_holder = "Anonymous"
 
     try:
         if video_path:
@@ -109,10 +119,15 @@ def run_pipeline(
             backend = get_backend()
 
         metadata = {
-            "speaker": speaker,
+            "knowledge_holder": effective_holder,
+            "speaker": effective_holder,
+            "community": community,
             "place": place,
             "language": language or "Auto-detect",
+            "occasion_or_context": occasion_or_context,
+            "source_video_license_or_permission": source_video_license_or_permission or "Personal permission granted by speaker",
             "consent_confirmed": consent_confirmed,
+            "anonymity_requested": anonymity_requested,
             "source_filename": filename
         }
 

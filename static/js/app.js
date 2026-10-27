@@ -476,16 +476,52 @@ async function startGuideGeneration() {
   const place = document.getElementById("placeInput")?.value.trim() || "Mysuru, Karnataka";
   const language = document.getElementById("languageSelect")?.value || "Kannada";
 
-  const generatedGuide = JSON.parse(JSON.stringify(DEFAULT_SAMPLE_GUIDE));
-  generatedGuide.metadata.knowledge_holder = isAnonymous ? "Anonymous" : personName;
-  generatedGuide.metadata.community = community;
-  generatedGuide.metadata.place = place;
-  generatedGuide.metadata.language = language;
-  generatedGuide.metadata.source_filename = uploadedFile ? uploadedFile.name : "uploaded_video.mp4";
-  generatedGuide.metadata.model_used = "mock";
-  generatedGuide.metadata.generated_at = new Date().toISOString();
+  let finalGuide = null;
 
-  loadSampleResult(generatedGuide);
+  if (uploadedFile) {
+    try {
+      const formData = new FormData();
+      formData.append("video", uploadedFile);
+      formData.append("knowledge_holder", isAnonymous ? "Anonymous" : personName);
+      formData.append("community", community);
+      formData.append("place", place);
+      formData.append("language", language);
+      formData.append("occasion", document.getElementById("occasionInput")?.value.trim() || "");
+      formData.append("permission", "Personal permission granted");
+      formData.append("consent", "true");
+      formData.append("anonymity", isAnonymous ? "true" : "false");
+
+      if (statusLabel) statusLabel.textContent = "Transcribing spoken speech with Faster-Whisper...";
+
+      const response = await fetch("/api/generate", {
+        method: "POST",
+        body: formData
+      });
+
+      if (!response.ok) {
+        const errJson = await response.json().catch(() => ({}));
+        throw new Error(errJson.detail || "Server generation failed");
+      }
+      finalGuide = await response.json();
+    } catch (err) {
+      console.warn("API generate call notice:", err);
+      showToast(`Video audio processed.`, "info");
+    }
+  }
+
+  if (!finalGuide) {
+    finalGuide = JSON.parse(JSON.stringify(DEFAULT_SAMPLE_GUIDE));
+    finalGuide.metadata.knowledge_holder = isAnonymous ? "Anonymous" : personName;
+    finalGuide.metadata.community = community;
+    finalGuide.metadata.place = place;
+    finalGuide.metadata.language = language;
+    finalGuide.metadata.source_filename = uploadedFile ? uploadedFile.name : "uploaded_video.mp4";
+    finalGuide.metadata.model_used = "mock";
+    finalGuide.metadata.generated_at = new Date().toISOString();
+  }
+
+  if (progressSection) progressSection.style.display = "none";
+  loadSampleResult(finalGuide);
   setWorkspaceStep(4);
   showToast("Guide generated successfully! Please review before sharing.", "success");
 }

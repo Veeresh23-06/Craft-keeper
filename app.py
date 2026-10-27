@@ -240,23 +240,94 @@ async def generate_guide_endpoint(
     anonymity: bool = Form(False)
 ):
     """API endpoint to process a video upload and return structured CraftGuide JSON."""
+    from datetime import datetime, timezone
+
     if not consent:
         raise HTTPException(status_code=400, detail="Consent is required before generating a guide.")
 
     temp_video_path = None
     try:
         backend_inst = get_backend()
-        
+
         if video and video.filename:
             suffix = Path(video.filename).suffix
             with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
                 shutil.copyfileobj(video.file, tmp)
                 temp_video_path = tmp.name
+
+            # Transcribe actual audio from the user's uploaded video
+            if BACKEND_NAME == "mock":
+                from craft_keeper.media import extract_media, cleanup_temp_dir
+                extract_tmp = tempfile.mkdtemp(prefix="craft_transcribe_")
+                try:
+                    audio_path, frames = extract_media(temp_video_path, temp_dir=extract_tmp)
+                    if audio_path and os.path.exists(audio_path):
+                        from faster_whisper import WhisperModel
+                        import gc
+                        w_model = WhisperModel("base", device="cpu", compute_type="int8")
+                        segments, info = w_model.transcribe(audio_path, beam_size=1)
+                        step_list = []
+                        for s in segments:
+                            text = s.text.strip()
+                            if text:
+                                tip = None
+                                if any(w in text.lower() for w in ["tip", "make sure", "remember", "never", "always", "careful", "important"]):
+                                    tip = text
+                                step_list.append({
+                                    "number": len(step_list) + 1,
+                                    "approx_start_seconds": round(s.start, 1),
+                                    "instruction": text,
+                                    "spoken_tip": tip
+                                })
+                        del w_model
+                        gc.collect()
+
+                        if step_list:
+                            clean_name = Path(video.filename).stem.replace("_", " ").replace("-", " ").title()
+                            real_guide = {
+                                "title": f"Traditional {clean_name}",
+                                "detected_language": info.language or language or "English",
+                                "category": "craft",
+                                "summary": f"How-to demonstration extracted directly from spoken video audio ({len(step_list)} spoken steps identified).",
+                                "metadata": {
+                                    "knowledge_holder": "Anonymous" if anonymity else knowledge_holder,
+                                    "community": community,
+                                    "place": place,
+                                    "language": info.language or language,
+                                    "occasion_or_context": occasion,
+                                    "source_video_license_or_permission": permission,
+                                    "anonymity_requested": anonymity,
+                                    "consent_confirmed": consent,
+                                    "model_used": "faster-whisper (local audio transcription)",
+                                    "frames_used": len(frames),
+                                    "frame_mode": "extracted_frames",
+                                    "source_filename": video.filename,
+                                    "generated_at": datetime.now(timezone.utc).isoformat()
+                                },
+                                "ingredients_or_materials": [
+                                    {"name": "Materials / Ingredients shown in video", "quantity": "As demonstrated", "note": "Review video recording to verify exact quantities"}
+                                ],
+                                "tools": ["Work surface / utensils shown in video"],
+                                "steps": step_list,
+                                "tips": [
+                                    "Extracted directly from artisan speech in video recording."
+                                ],
+                                "safety_notes": [
+                                    "Review all steps with a practitioner before attempting."
+                                ],
+                                "uncertain_items": [
+                                    {
+                                        "what": "Spoken measurements & quantities",
+                                        "reason": "Direct audio transcription from video. Confirm exact measurements before publishing."
+                                    }
+                                ]
+                            }
+                            return JSONResponse(content=real_guide)
+                finally:
+                    cleanup_temp_dir(extract_tmp)
         else:
-            # If in mock mode without uploaded file, use sample video path
             temp_video_path = str(BASE_DIR / "tests" / "fixtures" / "dummy_sample.mp4")
             if not os.path.exists(temp_video_path):
-                # Fall back to sample data
                 return await get_sample()
 
         guide = run_pipeline(

@@ -2,7 +2,7 @@
 
 > **Preserving living audiovisual heritage by turning short video demonstrations of traditional crafts and heirloom recipes into structured, verified how-to guides.**
 
-[![CI Test Suite](https://github.com/owner/craft-keeper/actions/workflows/ci.yml/badge.svg)](https://github.com/owner/craft-keeper)
+[![CI Test Suite](https://github.com/Veeresh23-06/Craft-keeper/actions/workflows/ci.yml/badge.svg)](https://github.com/Veeresh23-06/Craft-keeper)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-brightgreen.svg)](requirements.txt)
 [![Gemma 4](https://img.shields.io/badge/Model-Gemma_4-red.svg)](THIRD_PARTY.md)
@@ -61,8 +61,8 @@ No API key, GPU, or Ollama download is needed to evaluate Craft Keeper:
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/craft-keeper.git
-cd craft-keeper
+git clone https://github.com/Veeresh23-06/Craft-keeper.git
+cd Craft-keeper
 
 # 2. Create and activate a virtual environment
 python -m venv .venv

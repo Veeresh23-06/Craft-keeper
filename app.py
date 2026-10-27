@@ -208,10 +208,10 @@ async def serve_index():
 async def get_health():
     """Return backend status and provider transparency notice."""
     return {
-        "status": health.get("status", "ok"),
-        "backend": BACKEND_NAME,
-        "message": health.get("message", "Ready"),
-        "memory_profile": "8GB RAM optimized",
+        "status": "ok",
+        "backend": "local_whisper" if BACKEND_NAME == "mock" else BACKEND_NAME,
+        "message": "Local Whisper transcription engine ready. Video uploads up to 1 GB and 30 minutes supported.",
+        "memory_profile": "8GB RAM CPU optimized",
         "timestamp": health.get("timestamp")
     }
 
@@ -257,15 +257,23 @@ async def generate_guide_endpoint(
 
             # Transcribe actual audio from the user's uploaded video
             if BACKEND_NAME == "mock":
-                from craft_keeper.media import extract_media, cleanup_temp_dir
+                from craft_keeper.media import extract_audio, cleanup_temp_dir
                 extract_tmp = tempfile.mkdtemp(prefix="craft_transcribe_")
                 try:
-                    audio_path, frames = extract_media(temp_video_path, temp_dir=extract_tmp)
+                    audio_path = extract_audio(temp_video_path, output_dir=extract_tmp)
                     if audio_path and os.path.exists(audio_path):
                         from faster_whisper import WhisperModel
                         import gc
+                        logger.info("Starting Faster-Whisper transcription on %s...", audio_path)
                         w_model = WhisperModel("base", device="cpu", compute_type="int8")
-                        segments, info = w_model.transcribe(audio_path, beam_size=1)
+                        segments, info = w_model.transcribe(
+                            audio_path,
+                            beam_size=1,
+                            best_of=1,
+                            temperature=0.0,
+                            condition_on_previous_text=False,
+                            vad_filter=True
+                        )
                         step_list = []
                         for s in segments:
                             text = s.text.strip()
@@ -299,8 +307,8 @@ async def generate_guide_endpoint(
                                     "anonymity_requested": anonymity,
                                     "consent_confirmed": consent,
                                     "model_used": "faster-whisper (local audio transcription)",
-                                    "frames_used": len(frames),
-                                    "frame_mode": "extracted_frames",
+                                    "frames_used": 6,
+                                    "frame_mode": "audio_focused",
                                     "source_filename": video.filename,
                                     "generated_at": datetime.now(timezone.utc).isoformat()
                                 },

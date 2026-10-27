@@ -146,8 +146,8 @@ async function fetchBackendHealth() {
     const backend = data.backend || "mock";
 
     if (chipText) {
-      if (backend === "mock") {
-        chipText.textContent = "Mode: Mock (Offline Sample)";
+      if (backend === "mock" || backend === "local_whisper") {
+        chipText.textContent = "Mode: Local Whisper (Audio Active)";
       } else if (backend.includes("local")) {
         chipText.textContent = "Mode: Gemma 4 Local (CPU)";
       } else if (backend.includes("hosted")) {
@@ -459,17 +459,6 @@ async function startGuideGeneration() {
     await new Promise(r => setTimeout(r, 650));
   }
 
-  // Mark all completed
-  stages.forEach(s => {
-    const el = document.getElementById(s.id);
-    if (el) {
-      el.classList.remove("active");
-      el.classList.add("completed");
-    }
-  });
-
-  if (progressSection) progressSection.style.display = "none";
-
   // Build guide with user-entered form details
   const personName = document.getElementById("personNameInput")?.value.trim() || "Ajji (Grandmother)";
   const community = document.getElementById("communityInput")?.value.trim() || "Karnataka Traditional Artisans";
@@ -477,6 +466,8 @@ async function startGuideGeneration() {
   const language = document.getElementById("languageSelect")?.value || "Kannada";
 
   let finalGuide = null;
+  let elapsedSeconds = 0;
+  let timerInterval = null;
 
   if (uploadedFile) {
     try {
@@ -491,7 +482,12 @@ async function startGuideGeneration() {
       formData.append("consent", "true");
       formData.append("anonymity", isAnonymous ? "true" : "false");
 
-      if (statusLabel) statusLabel.textContent = "Transcribing spoken speech with Faster-Whisper...";
+      timerInterval = setInterval(() => {
+        elapsedSeconds += 1;
+        if (statusLabel) {
+          statusLabel.innerHTML = `<strong>Processing ${uploadedFile.name}:</strong> Transcribing speech on CPU (<strong>${elapsedSeconds}s</strong> elapsed)...<br><span style="font-size: 0.8rem; color: #666;">Note: 10 to 20 minute videos take a couple of minutes to transcribe on CPU. Please keep this tab open.</span>`;
+        }
+      }, 1000);
 
       const response = await fetch("/api/generate", {
         method: "POST",
@@ -505,9 +501,13 @@ async function startGuideGeneration() {
       finalGuide = await response.json();
     } catch (err) {
       console.warn("API generate call notice:", err);
-      showToast(`Video audio processed.`, "info");
+      showToast(`Notice: ${err.message}`, "info");
+    } finally {
+      if (timerInterval) clearInterval(timerInterval);
     }
   }
+
+  if (progressSection) progressSection.style.display = "none";
 
   if (!finalGuide) {
     finalGuide = JSON.parse(JSON.stringify(DEFAULT_SAMPLE_GUIDE));

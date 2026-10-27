@@ -859,18 +859,6 @@ function initModals() {
     });
   }
 
-  // Component Library Modal
-  const modalComp = document.getElementById("modalComponentLibrary");
-  const btnOpenComp = document.getElementById("btnOpenComponentLibrary");
-  const btnCloseComp = document.getElementById("btnCloseCompModal");
-
-  if (btnOpenComp && modalComp) {
-    btnOpenComp.addEventListener("click", () => modalComp.classList.add("open"));
-  }
-  if (btnCloseComp && modalComp) {
-    btnCloseComp.addEventListener("click", () => modalComp.classList.remove("open"));
-  }
-
   // Close on backdrop click
   document.querySelectorAll(".modal-overlay").forEach(overlay => {
     overlay.addEventListener("click", (e) => {

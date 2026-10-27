@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use Craft Keeper in your research or cultural heritage archiving projects, please cite it as below."
+title: "Craft Keeper: AI-Assisted Audiovisual Heritage Preservation"
+authors:
+  - family-names: "Craft Keeper Contributors"
+version: 0.1.0
+date-released: 2026-10-27
+license: Apache-2.0
+repository-code: "https://github.com/owner/craft-keeper"
+keywords:
+  - "cultural heritage"
+  - "audiovisual archiving"
+  - "gemma 4"
+  - "whisper"
+  - "open source ai"
+  - "living traditions"

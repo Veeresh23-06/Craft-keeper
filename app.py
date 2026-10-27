@@ -477,6 +477,16 @@ with gr.Blocks(title="Craft Keeper - Preserving Living Audiovisual Heritage", cs
         outputs=[download_file_target]
     )
 
+    # Open Source & Heritage Footer
+    gr.HTML("""
+    <div style="text-align: center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e0e0e0; font-size: 0.85rem; color: #666;">
+        🏺 <strong>Craft Keeper</strong> — Built for Hackathon: Best Open-Source AI Project (Theme: Audiovisual Heritage)<br/>
+        Licensed under <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" style="color: #1a73e8; text-decoration: none;">Apache 2.0</a> &nbsp;|&nbsp; 
+        Powered by <strong>Google Gemma 4</strong>, <strong>Faster-Whisper</strong> & <strong>FFmpeg</strong> &nbsp;|&nbsp; 
+        100% Free & Open Source
+    </div>
+    """)
+
 
 if __name__ == "__main__":
     demo.launch(server_name="127.0.0.1", server_port=7860, share=False)

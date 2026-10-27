@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FAF8F3" />
+      <stop offset="50%" stop-color="#F3F6F2" />
+      <stop offset="100%" stop-color="#E8EFE8" />
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1E4D3A" />
+      <stop offset="100%" stop-color="#2D7257" />
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E3A72F" />
+      <stop offset="100%" stop-color="#F4C056" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#1F2421" flood-opacity="0.15" />
+    </filter>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="720" fill="url(#bgGrad)" />
+
+  <!-- Subtle Heritage Geometry / Rangoli Ring in Background -->
+  <g opacity="0.08" stroke="#1E4D3A" stroke-width="2" fill="none">
+    <circle cx="280" cy="360" r="260" stroke-dasharray="8 8" />
+    <circle cx="280" cy="360" r="180" />
+    <circle cx="280" cy="360" r="100" />
+    <path d="M280 100 L280 620 M20 360 L540 360" stroke-dasharray="4 4" />
+  </g>
+
+  <!-- Left Side: Artisan Heritage Illustration (Hands, Pot, Film, Waveform) -->
+  <g transform="translate(80, 140)">
+    <!-- Video / Filmstrip Frames Motif -->
+    <rect x="40" y="20" width="110" height="70" rx="8" fill="#1F2421" />
+    <rect x="52" y="30" width="86" height="50" rx="4" fill="#2E3631" stroke="#8A9A8F" stroke-width="1.5" stroke-dasharray="3 3" />
+    <circle cx="95" cy="55" r="14" fill="#E3A72F" opacity="0.8" />
+    <polygon points="91,48 103,55 91,62" fill="#1F2421" />
+
+    <rect x="170" y="20" width="110" height="70" rx="8" fill="#1F2421" />
+    <rect x="182" y="30" width="86" height="50" rx="4" fill="#2E3631" stroke="#8A9A8F" stroke-width="1.5" stroke-dasharray="3 3" />
+    <circle cx="225" cy="55" r="14" fill="#E3A72F" opacity="0.8" />
+    <polygon points="221,48 233,55 221,62" fill="#1F2421" />
+
+    <rect x="300" y="20" width="110" height="70" rx="8" fill="#1F2421" />
+    <rect x="312" y="30" width="86" height="50" rx="4" fill="#2E3631" stroke="#8A9A8F" stroke-width="1.5" stroke-dasharray="3 3" />
+    <circle cx="355" cy="55" r="14" fill="#E3A72F" opacity="0.8" />
+    <polygon points="351,48 363,55 351,62" fill="#1F2421" />
+
+    <!-- Flowing Golden Audio Waveforms -->
+    <g transform="translate(60, 120)">
+      <rect x="0" y="20" width="8" height="40" rx="4" fill="#E3A72F" />
+      <rect x="18" y="5" width="8" height="70" rx="4" fill="#E3A72F" />
+      <rect x="36" y="25" width="8" height="30" rx="4" fill="#E3A72F" />
+      <rect x="54" y="0" width="8" height="80" rx="4" fill="#1E4D3A" />
+      <rect x="72" y="15" width="8" height="50" rx="4" fill="#1E4D3A" />
+      <rect x="90" y="30" width="8" height="20" rx="4" fill="#1E4D3A" />
+      <rect x="108" y="10" width="8" height="60" rx="4" fill="#E3A72F" />
+      <rect x="126" y="0" width="8" height="80" rx="4" fill="#E3A72F" />
+      <rect x="144" y="20" width="8" height="40" rx="4" fill="#E3A72F" />
+      <rect x="162" y="28" width="8" height="24" rx="4" fill="#1E4D3A" />
+      <rect x="180" y="8" width="8" height="64" rx="4" fill="#1E4D3A" />
+      <rect x="198" y="22" width="8" height="36" rx="4" fill="#1E4D3A" />
+      <rect x="216" y="0" width="8" height="80" rx="4" fill="#E3A72F" />
+      <rect x="234" y="15" width="8" height="50" rx="4" fill="#E3A72F" />
+      <rect x="252" y="25" width="8" height="30" rx="4" fill="#E3A72F" />
+      <rect x="270" y="8" width="8" height="64" rx="4" fill="#1E4D3A" />
+      <rect x="288" y="0" width="8" height="80" rx="4" fill="#1E4D3A" />
+      <rect x="306" y="18" width="8" height="44" rx="4" fill="#1E4D3A" />
+    </g>
+
+    <!-- Traditional Cooking / Craft Vessel & Hands Line Art -->
+    <g transform="translate(60, 240)">
+      <!-- Brass / Iron Kadai (Deep Pan) -->
+      <path d="M40 80 Q170 180 300 80 L315 50 L25 50 Z" fill="#EBF3EE" stroke="#1E4D3A" stroke-width="4" stroke-linejoin="round" />
+      <ellipse cx="170" cy="50" rx="145" ry="16" fill="#FAF8F3" stroke="#1E4D3A" stroke-width="4" />
+      
+      <!-- Handles -->
+      <path d="M20 50 Q5 35 25 30 Q35 45 30 55" fill="none" stroke="#1E4D3A" stroke-width="4" />
+      <path d="M320 50 Q335 35 315 30 Q305 45 310 55" fill="none" stroke="#1E4D3A" stroke-width="4" />
+
+      <!-- Artisan Hands Working -->
+      <path d="M -10 30 C 30 10, 80 20, 110 50" stroke="#1E4D3A" stroke-width="5" stroke-linecap="round" fill="none" />
+      <path d="M 350 30 C 310 10, 260 20, 230 50" stroke="#1E4D3A" stroke-width="5" stroke-linecap="round" fill="none" />
+
+      <!-- Golden Honeycomb Essence Rising -->
+      <path d="M140 20 Q145 -10 140 -30" stroke="#E3A72F" stroke-width="3" stroke-linecap="round" fill="none" />
+      <path d="M170 15 Q175 -15 170 -35" stroke="#E3A72F" stroke-width="3" stroke-linecap="round" fill="none" />
+      <path d="M200 20 Q205 -10 200 -30" stroke="#E3A72F" stroke-width="3" stroke-linecap="round" fill="none" />
+    </g>
+  </g>
+
+  <!-- Right Side: Bold Headline & Structured Guide Preview Card -->
+  <g transform="translate(560, 70)">
+
+    <!-- Top Badge -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="340" height="40" rx="20" fill="#FFF3D6" stroke="#E3A72F" stroke-width="1.5" />
+      <circle cx="22" cy="20" r="6" fill="#E3A72F" />
+      <text x="38" y="25" font-family="'Inter', -apple-system, sans-serif" font-size="15" font-weight="700" fill="#5A3E00" letter-spacing="0.5">AUDIOVISUAL HERITAGE AI</text>
+    </g>
+
+    <!-- Main Title -->
+    <text x="0" y="105" font-family="'Fraunces', Georgia, serif" font-size="62" font-weight="700" fill="#1F2421" letter-spacing="-1.5">
+      Craft Keeper
+    </text>
+
+    <!-- Subtitle -->
+    <text x="0" y="150" font-family="'Inter', sans-serif" font-size="24" font-weight="500" fill="#4A5249">
+      Save living skills before they are lost.
+    </text>
+
+    <!-- Floating White Structured Guide Preview Card -->
+    <g transform="translate(0, 180)" filter="url(#shadow)">
+      <rect x="0" y="0" width="640" height="320" rx="16" fill="#FFFFFF" stroke="#D9D3C5" stroke-width="2" />
+
+      <!-- Card Header -->
+      <rect x="0" y="0" width="640" height="60" rx="16" fill="#F3F6F2" />
+      <rect x="0" y="44" width="640" height="16" fill="#F3F6F2" />
+      <line x1="0" y1="60" x2="640" y2="60" stroke="#D9D3C5" stroke-width="1" />
+      
+      <circle cx="28" cy="30" r="10" fill="#1E4D3A" />
+      <polyline points="24,30 27,33 33,27" stroke="#FFFFFF" stroke-width="2" fill="none" />
+      <text x="48" y="36" font-family="'Fraunces', serif" font-size="18" font-weight="700" fill="#1F2421">Traditional Mysuru Paak (Sample Guide)</text>
+      
+      <rect x="490" y="16" width="130" height="28" rx="14" fill="#1E4D3A" />
+      <text x="555" y="34" font-family="'Inter', sans-serif" font-size="12" font-weight="600" fill="#FFFFFF" text-anchor="middle">✓ VERIFIED DRAFT</text>
+
+      <!-- Step 1 -->
+      <g transform="translate(24, 85)">
+        <circle cx="16" cy="16" r="14" fill="#EBF3EE" stroke="#1E4D3A" stroke-width="1.5" />
+        <text x="16" y="21" font-family="'Inter', sans-serif" font-size="12" font-weight="700" fill="#1E4D3A" text-anchor="middle">1</text>
+        <text x="42" y="16" font-family="'Inter', sans-serif" font-size="15" font-weight="600" fill="#1F2421">Sieve gram flour and fold in warm melted ghee [0:08s]</text>
+        <text x="42" y="36" font-family="'Inter', sans-serif" font-size="13" font-style="italic" fill="#1E4D3A">Oral Tip: "Rubbing warm ghee into dry flour stops lumps from forming."</text>
+      </g>
+
+      <!-- Step 2 -->
+      <g transform="translate(24, 145)">
+        <circle cx="16" cy="16" r="14" fill="#EBF3EE" stroke="#1E4D3A" stroke-width="1.5" />
+        <text x="16" y="21" font-family="'Inter', sans-serif" font-size="12" font-weight="700" fill="#1E4D3A" text-anchor="middle">2</text>
+        <text x="42" y="16" font-family="'Inter', sans-serif" font-size="15" font-weight="600" fill="#1F2421">Boil sugar syrup until single-string consistency [0:21s]</text>
+        <text x="42" y="36" font-family="'Inter', sans-serif" font-size="13" font-style="italic" fill="#1E4D3A">Oral Tip: "Test between fingers—it must pull a continuous thin string."</text>
+      </g>
+
+      <!-- Amber Flag Box (Model Uncertainty Notice) -->
+      <g transform="translate(24, 205)">
+        <rect x="0" y="0" width="592" height="48" rx="8" fill="#FFF3D6" stroke="#E3A72F" stroke-width="1" />
+        <text x="16" y="22" font-family="'Inter', sans-serif" font-size="13" font-weight="700" fill="#5A3E00">⚠️ Human Check Required (Responsible AI):</text>
+        <text x="16" y="38" font-family="'Inter', sans-serif" font-size="12" fill="#5A3E00">Audio obscured at 0:42; confirm stove flame setting before finalizing.</text>
+      </g>
+
+      <!-- Card Footer Line -->
+      <g transform="translate(24, 280)">
+        <text x="0" y="16" font-family="'Inter', sans-serif" font-size="13" font-weight="500" fill="#4A5249">Knowledge shared by: <tspan font-weight="700" fill="#1F2421">Ajji (Grandmother)</tspan>, Karnataka Artisans, Mysuru</text>
+      </g>
+    </g>
+
+    <!-- Bottom Tech Pills -->
+    <g transform="translate(0, 525)">
+      <rect x="0" y="0" width="160" height="38" rx="8" fill="#1E4D3A" />
+      <text x="80" y="24" font-family="'Inter', sans-serif" font-size="14" font-weight="600" fill="#FFFFFF" text-anchor="middle">Google Gemma 4</text>
+
+      <rect x="175" y="0" width="150" height="38" rx="8" fill="#1E4D3A" />
+      <text x="250" y="24" font-family="'Inter', sans-serif" font-size="14" font-weight="600" fill="#FFFFFF" text-anchor="middle">Faster-Whisper</text>
+
+      <rect x="340" y="0" width="130" height="38" rx="8" fill="#1E4D3A" />
+      <text x="405" y="24" font-family="'Inter', sans-serif" font-size="14" font-weight="600" fill="#FFFFFF" text-anchor="middle">100% Free</text>
+
+      <rect x="485" y="0" width="155" height="38" rx="8" fill="#FFFFFF" stroke="#1E4D3A" stroke-width="2" />
+      <text x="562" y="24" font-family="'Inter', sans-serif" font-size="14" font-weight="600" fill="#1E4D3A" text-anchor="middle">Apache-2.0</text>
+    </g>
+
+  </g>
+</svg>
